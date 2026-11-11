@@ -22,7 +22,7 @@ interface ListEditorProps<Item extends ListItem> {
   renderForm: (item: Item, update: (patch: Partial<Item>) => void) => ReactNode;
 }
 
-const PANEL_BUTTON = "press inline-flex h-9 items-center gap-1.5 rounded-full px-3.5 text-xs font-medium disabled:opacity-30";
+const PANEL_BUTTON = "press inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3.5 text-xs font-medium disabled:opacity-30";
 
 /** List on the left, the chosen item's editor on the right. Ticked rows get bulk actions in the top toolbar. */
 export function ListEditor<Item extends ListItem>({ title, items, onChange, addLabel, createItem, itemTitle, itemImage, renderForm }: ListEditorProps<Item>) {
@@ -138,8 +138,8 @@ export function ListEditor<Item extends ListItem>({ title, items, onChange, addL
             transition={{ duration: 0.22 }}
             className="panel p-5 md:p-6 lg:sticky lg:top-4"
           >
-            <header className="mb-5 flex flex-wrap items-center gap-2">
-              <h3 className="mr-auto min-w-0 truncate text-lg font-medium tracking-tight">{itemTitle(activeItem) || "Untitled"}</h3>
+            <header className="mb-5 flex items-center gap-2">
+              <h3 className="min-w-0 flex-1 truncate text-lg font-medium tracking-tight" title={itemTitle(activeItem)}>{itemTitle(activeItem) || "Untitled"}</h3>
               <button type="button" onClick={() => updateItem(activeItem.id, { isVisible: !activeItem.isVisible } as Partial<Item>)} className={`${PANEL_BUTTON} border border-neutral-300 bg-white/70 hover:border-black`}>
                 {activeItem.isVisible ? <Eye className="size-3.5" /> : <EyeOff className="size-3.5" />} {activeItem.isVisible ? "Visible" : "Hidden"}
               </button>
