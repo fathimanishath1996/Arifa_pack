@@ -109,7 +109,16 @@ function PublishControls() {
 /** The Website Panel: only the Manager and MD may edit and publish the public site. */
 export function WebsiteShell({ children }: { children: ReactNode }) {
   const { data, role } = useCrm();
-  if (!data) return <LoadingState />;
+  // Before the browser data loads (and while the server prerenders), keep the page rendered but hidden,
+  // so Next.js can still check the route for instant navigation.
+  if (!data) {
+    return (
+      <>
+        <LoadingState />
+        <div hidden>{children}</div>
+      </>
+    );
+  }
 
   if (!can(role, "EDIT_WEBSITE")) {
     return (
