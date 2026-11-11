@@ -42,7 +42,7 @@ function ActiveNavLinks() {
 
 export function Sidebar() {
   return (
-    <aside className="panel flex items-center justify-between gap-3 px-3 py-2.5 md:sticky md:top-4 md:h-[calc(100vh-2rem)] md:w-56 md:shrink-0 md:flex-col md:items-stretch md:justify-start md:p-4 md:pt-6">
+    <aside className="panel relative z-50 flex items-center justify-between gap-3 px-3 py-2.5 md:sticky md:top-4 md:h-[calc(100vh-2rem)] md:w-56 md:shrink-0 md:flex-col md:items-stretch md:justify-start md:p-4 md:pt-6">
       <Link href="/" className="group flex items-center gap-2.5 md:px-3">
         <span className="grid size-8 place-items-center rounded-full bg-black text-sm font-bold text-white transition-transform duration-300 group-hover:rotate-[360deg]">A</span>
         <span className="hidden text-base font-semibold tracking-tight sm:inline">Arifaa</span>

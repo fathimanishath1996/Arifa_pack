@@ -24,7 +24,7 @@ function SectionNav({ activePath }: { activePath: string | null }) {
   const unreadCount = store.messages.filter((message) => !message.isRead).length;
 
   return (
-    <nav className="no-scrollbar flex max-w-full overflow-x-auto rounded-full bg-black/5 p-1" aria-label="Website pages">
+    <nav className="no-scrollbar flex max-w-full overflow-x-auto rounded-full bg-black/5 p-1 sm:flex-wrap sm:overflow-visible sm:rounded-3xl" aria-label="Website pages">
       {NAV_ITEMS.map((item) => {
         const isActive = activePath === item.href;
         const badge = item.href === MESSAGES_NAV.href && unreadCount > 0 ? unreadCount : null;
