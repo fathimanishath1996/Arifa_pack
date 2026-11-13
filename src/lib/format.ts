@@ -13,7 +13,6 @@ export const formatCount = (count: number) => countFormat.format(count);
 export const formatPercent = (ratio: number) => `${(ratio * 100).toFixed(1)}%`;
 
 export function formatDate(iso: string): string {
-  if (!iso) return "—";
   return new Date(iso).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
 }
 

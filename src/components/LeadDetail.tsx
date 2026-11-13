@@ -124,11 +124,6 @@ function OwnerValue({ lead }: { lead: Lead }) {
         aria-label="Reassign owner"
         className="-ml-1 min-w-0 cursor-pointer rounded-full bg-transparent px-2 font-semibold outline-none transition-colors hover:bg-black/5"
       >
-        {!SALES_OWNERS.includes(lead.owner) && (
-          <option value={lead.owner} disabled>
-            {lead.owner}
-          </option>
-        )}
         {SALES_OWNERS.map((owner) => (
           <option key={owner} value={owner}>
             {owner}

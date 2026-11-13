@@ -4,7 +4,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { TopBar } from "@/components/TopBar";
 import { CrmProvider } from "@/store/crm-store";
 
-/** The CRM screens: glass backdrop, sidebar and top bar around every page (Sales and the Website Panel). */
+/** The CRM screens: glass backdrop, sidebar and top bar around every page. */
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <CrmProvider>

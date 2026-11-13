@@ -18,14 +18,13 @@ export const DEMO_USER_NAME: Record<Role, string> = {
 /** Sales people a deal can be assigned to. */
 export const SALES_OWNERS = ["Divya", "Arun", "Meena"];
 
-export type Permission = "APPROVE_QUOTES" | "SEE_PROFIT" | "REASSIGN_DEALS" | "SEE_ALL_DEALS" | "EDIT_WEBSITE";
+export type Permission = "APPROVE_QUOTES" | "SEE_PROFIT" | "REASSIGN_DEALS" | "SEE_ALL_DEALS";
 
 const PERMISSIONS: Record<Permission, Role[]> = {
   APPROVE_QUOTES: ["MANAGER", "MD"],
   SEE_PROFIT: ["MANAGER", "MD"],
   REASSIGN_DEALS: ["MANAGER", "MD"],
   SEE_ALL_DEALS: ["MANAGER", "MD"],
-  EDIT_WEBSITE: ["MANAGER", "MD"],
 };
 
 export function can(role: Role, permission: Permission): boolean {

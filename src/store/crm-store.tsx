@@ -61,16 +61,8 @@ function loadState(): StoreState {
 const crmStore = {
   subscribe(listener: () => void) {
     listeners.add(listener);
-    // A lead added in another tab (e.g. from the public website form) shows here without a reload.
-    const handleStorage = (event: StorageEvent) => {
-      if (event.key !== DATA_STORAGE_KEY) return;
-      clientState = loadState();
-      listener();
-    };
-    window.addEventListener("storage", handleStorage);
     return () => {
       listeners.delete(listener);
-      window.removeEventListener("storage", handleStorage);
     };
   },
   getSnapshot(): StoreState {
@@ -124,37 +116,6 @@ function createDraftQuote(lead: Lead, now: number): Quote {
     createdAt: toIso(now),
     approvalDeadline: toIso(now + APPROVAL_WINDOW_HOURS * HOUR),
   };
-}
-
-const WEBSITE_LEAD_OWNER = "Unassigned";
-
-/** A website contact-form enquiry becomes a New lead, so the sales team picks it up in the pipeline. */
-export function addWebsiteEnquiryLead(enquiry: { name: string; email: string; subject: string; message: string }) {
-  updateData((current) => {
-    const now = Date.now();
-    const lastNumber = Math.max(0, ...current.leads.map((lead) => Number(lead.id.slice(2)) || 0));
-    const leadId = `L-${lastNumber + 1}`;
-    const lead: Lead = {
-      id: leadId,
-      company: enquiry.name,
-      contactName: enquiry.name,
-      phone: "",
-      email: enquiry.email,
-      channel: "Email",
-      location: "Not given",
-      product: "To be confirmed",
-      quantity: 0,
-      targetDate: "",
-      source: "Website form",
-      stage: "NEW",
-      owner: WEBSITE_LEAD_OWNER,
-      aiAgent: "Lead Qualification AI",
-      createdAt: toIso(now),
-      nextAction: { text: "Qualify website enquiry", dueAt: toIso(now + 2 * HOUR) },
-    };
-    const note = createActivity(leadId, "Customer", `Website form${enquiry.subject ? ` · ${enquiry.subject}` : ""}: ${enquiry.message}`);
-    return { ...current, leads: [...current.leads, lead], activities: [...current.activities, note] };
-  });
 }
 
 export function CrmProvider({ children }: { children: React.ReactNode }) {

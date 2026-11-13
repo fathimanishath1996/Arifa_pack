@@ -1,25 +1,20 @@
 "use client";
 
-import { Globe, LayoutDashboard, SquareKanban } from "lucide-react";
+import { LayoutDashboard, SquareKanban } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Suspense } from "react";
-import { type Permission, can } from "@/config/roles";
-import { useCrm } from "@/store/crm-store";
 import { ProfileMenu } from "@/components/ProfileMenu";
 
-const NAV_ITEMS: { href: string; label: string; icon: typeof Globe; matches: string[]; permission?: Permission }[] = [
+const NAV_ITEMS = [
   { href: "/", label: "Today", icon: LayoutDashboard, matches: [] },
   { href: "/pipeline", label: "Pipeline", icon: SquareKanban, matches: ["/pipeline", "/leads"] },
-  // The CMS: editing the public website. Manager and MD only.
-  { href: "/website", label: "Website Panel", icon: Globe, matches: ["/website"], permission: "EDIT_WEBSITE" },
 ];
 
 function NavLinks({ activePath }: { activePath: string | null }) {
-  const { role } = useCrm();
   return (
     <nav className="flex gap-1 md:flex-col">
-      {NAV_ITEMS.filter((item) => !item.permission || can(role, item.permission)).map((item) => {
+      {NAV_ITEMS.map((item) => {
         const isActive = activePath === item.href || (activePath !== null && item.matches.some((path) => activePath.startsWith(path)));
         return (
           <Link
